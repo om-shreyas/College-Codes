@@ -4,24 +4,27 @@ int rear=-1;
 int N=20;
 void Insert(int A[],int e)
 {
-    if(front==-1)
+    if(front==rear+1 || (front==0 && rear==N-1))
     {
-        front+=1;
-        rear+=1;
-        A[rear]=e;
+        printf("Overflow");
+    }
+    else if (front==-1)
+    {
+        front=0;
+        rear=0;
     }
     else
     {
         if(rear==N-1)
         {
-            printf("Overflow\n");
+            rear=0;
         }
         else
         {
-            rear+=1;
-            A[rear]=e;
+            rear=rear+1;
         }
     }
+    A[rear]=e;
 }
 void Delete(int A[])
 {
@@ -36,6 +39,10 @@ void Delete(int A[])
         {
             front=-1;
             rear=-1;
+        }
+        else if (front==N-1)
+        {
+            front=0;
         }
         else
         {
