@@ -44,14 +44,19 @@ void Insert(int n, int p)
             head = new;
         }
     }
-    else if(p<=count())
+    else if(p==1)
+    {
+        new->next=head;
+        head = new;
+    }
+    else if(p<=(count()+1))
     {
         int i;
-        for(i=1;i<n;i++)
+        for(i=1;i<n-1 && current->next!=NULL;i++)
         {
             current = current->next;
         }
-        new->next = current;
+        new->next = current->next;
         current->next = new;
     }
     else
@@ -140,36 +145,64 @@ void delete_value(int v)
     }
 }
 
-void Insert_sort(int e)
-{
-    node *new = (node *)malloc(sizeof(node));
-    new->value=e;
-    new->next=NULL;
-
-    node *current = head;
-
-    while (e < current->next->value)
-    {
-        current->next;
-    }
-    
-    new->next = current->next;
-    current->next = new;
-}
-
 int main()
 {
-    Insert(10,-1);
-    Insert(20,-1);
-    Insert(30,-1);
-    Insert(40,-1);
-    Insert(50,-1);
-    Insert(60,-1);
-    Insert_sort(25);
-    delete(2);
-    delete_value(50);
-    search(30);
-    
-    Traversal();
+    int e,p,n;
+    int c=0;
+    printf("Enter ur choice (0: Create list | 1:Enter data | 2:Delete Data | 3:Delete Position | 4:Search Data | 5:Show Data | 6:Exit): ");
+    scanf("%d",&c);
+    while(c!=6)
+    {
+        printf("Enter ur choice (0: Create list | 1:Enter data | 2:Delete Data | 3:Delete Position | 4:Search Data | 5:Show Data | 6:Exit): ");
+        scanf("%d",&c);
+
+        switch (c)
+        {
+            case 0:
+            int n;
+            printf("Enter no. of values");
+            scanf("%d",&n);
+            for(int i=0;i<n;i++)
+            {
+                int e;
+                printf("Enter Value: ");
+                scanf("%d",&e);
+                Insert(e,-1);
+            }
+            break;
+
+            case 1:
+            printf("Enter Value: ");
+            scanf("%d",&e);
+            printf("Enter position(enter -1 for last): ");
+            scanf("%d",&p);
+            Insert(e,p);
+            break;
+
+            case 2:
+            printf("Enter the value: ");
+            scanf("%d",&e);
+            delete_value(e);
+            break;
+
+            case 3:
+            printf("Enter the position: ");
+            scanf("%d",&p);
+            delete(p);
+            break;
+
+            case 4:
+            printf("Enter the value to search for: ");
+            scanf("%d",&e);
+            search(e);
+            break;
+
+            case 5:
+            Traversal();
+
+            default:
+                break;
+        }
+    }
     return 0;
 }
