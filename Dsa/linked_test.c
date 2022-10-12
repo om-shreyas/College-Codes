@@ -52,7 +52,7 @@ void Insert(int n, int p)
     else if(p<=(count()+1))
     {
         int i;
-        for(i=1;i<n-1 && current->next!=NULL;i++)
+        for(i=1;i<p-1;i++)
         {
             current = current->next;
         }
@@ -146,11 +146,9 @@ void delete_value(int v)
 }
 
 int main()
-{
+{   
     int e,p,n;
     int c=0;
-    printf("Enter ur choice (0: Create list | 1:Enter data | 2:Delete Data | 3:Delete Position | 4:Search Data | 5:Show Data | 6:Exit): ");
-    scanf("%d",&c);
     while(c!=6)
     {
         printf("Enter ur choice (0: Create list | 1:Enter data | 2:Delete Data | 3:Delete Position | 4:Search Data | 5:Show Data | 6:Exit): ");
@@ -204,5 +202,6 @@ int main()
                 break;
         }
     }
+
     return 0;
 }
