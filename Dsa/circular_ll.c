@@ -10,76 +10,127 @@ typedef struct linked_list node;
 
 node * head = NULL;
 
-int count()
+void delete_value(int n)
 {
-    node * current = head;
-    int c;
-    if(current->next!=head && current!=NULL)
+    if(head->value==n)
     {
-        current = current->next;
-        c=1;
-        while(current!=head)
-        {
-            current=current->next;
-            c++;
-        }
+        head = head->next;
     }
     else
     {
-        if(current==NULL)
+        node * current = head;
+        node * prior = NULL;
+        while(current->value!=n)
         {
-            c=0;
+            prior = current;
+            current = current->next;
         }
-        else
-        {
-            c=1;
-        }
+        prior->next=current->next;
     }
-    return(c);
 }
 
-void Insert(int v, int p)
+void search(int e)
 {
-    node * new = (node *)malloc(sizeof(node));
-    new->value=v;
-    new->next=NULL;
-
     node * current = head;
-
-    if(p==-1)
+    int n = 1;
+    while(current->value!=e)
     {
-        if(head!=NULL)
+        n++;
+        current = current->next;
+    }
+    if(current->value==e)
+    {
+        printf("The element is at %d\n",n);
+    }
+    else
+    {
+        printf("Element not present\n");
+    }
+}
+
+void delete (int p)
+{
+    node * current = head;
+    node * prior = NULL;
+    if(head==NULL)
+    {
+        printf("Underflow\n");
+    }
+    else
+    {
+        if(p==1)
         {
+            node * current = head;
+            current = current->next;
             while(current->next!=head)
             {
+                current = current->next;
+            }
+            head = head->next;
+            current->next=head;
+        }
+        else
+        {
+            node * current = head;
+            node * prior = NULL;
+            for(int i=1;i<p;i++)
+            {
+                prior=current;
                 current=current->next;
             }
-            current->next=head;
-            new->next=head;
-        }
-        else
-        {
-            head = new;
-            new->next=head;
+            prior->next= current->next;
         }
     }
-    else if(p==1)
+}
+
+void Insert (int n, int p)
+{
+    node * new = (node *)malloc(sizeof(node));
+    new->value = n;
+    new->next = NULL;
+
+    if(p==1)
     {
-        if(head!=NULL)
-        {
-            new->next=head;
-            head = new;
-        }
-        else
+        if(head == NULL)
         {
             head = new;
             new->next = head;
         }
+        else
+        {
+            new->next = head;
+            node * current = head;
+            while(current->next!=head)
+            {
+                current=current->next;
+            }
+            current->next=new;
+            head=new;
+        }
     }
-    else if(p<=count()+1)
+    else if(p==-1)
     {
-        current=current->next;
-        for(int i =1;i<p-1;i++)
+        if(head == NULL)
+        {
+            head = new;
+            new->next = head;
+        }
+        else
+        {
+            node * current = head;
+            current = current->next;
+            while(current->next!=head)
+            {
+                current = current->next;
+            }
+            new->next=current->next;
+            current->next=new;
+        }
+    }
+    else
+    {
+        node * current = head;
+        for(int i=0;i<n-1;i++)
         {
             current=current->next;
         }
@@ -88,33 +139,19 @@ void Insert(int v, int p)
     }
 }
 
-void delete_value(int v)
+void Traversal()
 {
-    if(head!=NULL)
+    node * current = head;
+    if (head != NULL)
     {
-        node * current = head;
-        node * prior = NULL;
-        while(current->value!=v)
+        printf("%d",current->value);
+        current=current->next;
+        while(current!=head)
         {
-            prior = current;
+            printf("%d",current->value);
             current=current->next;
         }
-        prior->next=current->next;
-    }
-    else
-    {
-        printf("Underflow\n");
-    }
-}
-
-void delete(int p)
-{
-    if(head!=NULL)
-    {
-        if()
-        node * current = head;
-        node * prior = NULL;   
-        for(int)
+        printf("\n");
     }
 }
 
