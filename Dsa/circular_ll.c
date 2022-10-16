@@ -144,11 +144,11 @@ void Traversal()
     node * current = head;
     if (head != NULL)
     {
-        printf("%d",current->value);
+        printf("%d ",current->value);
         current=current->next;
         while(current!=head)
         {
-            printf("%d",current->value);
+            printf("%d ",current->value);
             current=current->next;
         }
         printf("\n");
