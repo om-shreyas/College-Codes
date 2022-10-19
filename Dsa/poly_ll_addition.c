@@ -9,25 +9,6 @@ struct linked_list
 };
 typedef struct linked_list node;
 
-node * Insert(node * new, node * head)
-{
-    node * current = head;
-    if(current!=NULL)
-    {
-        while(current->next!=NULL && current!=NULL)
-        {
-            current=current->next;
-        }
-        new->next=current->next;
-        current->next = new;
-    }
-    else
-    {
-        head = new;
-    }
-    return head;
-}
-
 node * create_poly(node * head)
 {
     int n;
@@ -50,25 +31,72 @@ node * create_poly(node * head)
         new->coff=c;
 
         new->next=NULL;
-        head = Insert(new,head);
+        node * current = head;
+        if(current!=NULL)
+        {
+            while(current->next!=NULL && current!=NULL)
+            {
+                current=current->next;
+            }
+            new->next=current->next;
+            current->next = new;
+        }
+        else
+        {
+            head = new;
+        }
     }
     return head;
+}
+
+node * add_node(int exp, int coff, node * head)
+{
+    node * new = (node *)malloc(sizeof(node));
+    new->exp=exp;
+    new->coff=coff;
+    new->next=NULL;
+
+    node * current = head;
+    node * prior = NULL;
+    int add = 0;
+    while(current->exp>=exp)
+    {
+        prior=current;
+        current=current->next;
+    }
+    if(prior==NULL && add==0)
+    {
+        new->next=head;
+        head = new;
+    }
+    else if(add==0)
+    {
+        new->next=current;
+        prior->next=new;
+    }
+    return(head);
 }
 
 node * add(node * h1, node *h2)
 {
     node * eq1 = h1;
-    while(eq1->next!=NULL)
+    while(eq1!=NULL)
     {
         node * eq2 = h2;
-        while(eq2->next!=NULL)
+        int add = 0;
+        while(eq2!=NULL)
         {
             if(eq1->exp==eq2->exp)
             {
                 eq2->coff = eq2->coff+eq1->coff;
+                add++;
                 break;
             }
             eq2 = eq2->next;
+        }
+        if(add==0)
+        {
+            h2 = add_node(eq1->exp,eq1->coff,h2);
         }
         eq1 = eq1->next;
     }
@@ -90,7 +118,7 @@ void print_poly(node * head)
     {
         printf("%d ",current->coff);
     }
-    printf("\n");
+    printf("\n\n");
 }
 
 int main()
