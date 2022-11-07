@@ -69,7 +69,7 @@ void delete(int n)
 {
     if(head->next!=NULL)
         if(n!=-1)
-        {   
+        {
             node * current = head;
             node * prior = NULL;
             while(current->next!=NULL)
@@ -146,7 +146,7 @@ void delete_value(int v)
 }
 
 int main()
-{   
+{
     int e,p,n;
     int c=0;
     while(c!=6)
@@ -157,17 +157,17 @@ int main()
         switch (c)
         {
             case 0:
-            int n;
-            printf("Enter no. of values");
-            scanf("%d",&n);
-            for(int i=0;i<n;i++)
-            {
-                int e;
-                printf("Enter Value: ");
-                scanf("%d",&e);
-                Insert(e,-1);
-            }
-            break;
+                int n;
+                printf("Enter no. of values");
+                scanf("%d",&n);
+                for(int i=0;i<n;i++)
+                {
+                    int e;
+                    printf("Enter Value: ");
+                    scanf("%d",&e);
+                    Insert(e,-1);
+                }
+                break;
 
             case 1:
             printf("Enter Value: ");
