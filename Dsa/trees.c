@@ -29,7 +29,15 @@ node * search(int n)
     return(current);
 }
 
-void traverse(node * root)
+void search_node(int n)
+{
+    node * temp = search(n);
+    printf("  %d  ",temp->root->data);
+    printf("| / \ |");
+    printf("%d   %d",temp->root->left->data,temp->root->right->data);
+}
+
+void postorder(node * root)
 {
     if(root==NULL)
     {
@@ -37,9 +45,37 @@ void traverse(node * root)
     }
     else
     {
-        traverse(root->left);
-        printf("-%d-",root->data);
-        traverse(root->right);
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d ",root->data);
+    }
+}
+
+void preorder(node * root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    else
+    {
+        printf("%d ",root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+void inorder(node * root)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    else
+    {
+        inorder(root->left);
+        printf("%d ",root->data);
+        inorder(root->right);
     }
 }
 
@@ -94,22 +130,90 @@ void create_tree()
         scanf("%d",&temp);
         insert_node(temp);
     }
-    traverse(base_root);
+    inorder(base_root);
     printf("\n");
 }
 
-void delete_node(int n)
+int check_leaf(node * n)
 {
-    node * n = search(n);
     if(n->left==NULL && n->right==NULL)
     {
-        node * r = n->root;
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
 
+void delete_node(int n1)
+{
+    node * n = search(n1);
+    if(check_leaf(n)==1)
+    {
+        if(n->root->data>n1)
+        {
+            n->root->left=NULL;
+        }
+        else
+        {
+            n->root->right=NULL;
+        }
     }
 }
 
 int main()
 {
-    create_tree();
+    int e,p,n;
+    int c=0;
+    while(c!=6)
+    {
+        printf("Enter ur choice (0: Create list | 1:Enter data | 2:Delete Data | 3:Search Data | 4:Show Data | 5:Exit): ");
+        scanf("%d",&c);
+
+        switch (c)
+        {
+            case 0:
+            {
+                create_tree();
+                break;
+            }
+
+            case 1:
+            {
+                printf("Enter Value: ");
+                scanf("%d",&e);
+                insert_node(e);
+                break;
+            }
+
+            case 2:
+            {
+                printf("Enter the value: ");
+                scanf("%d",&e);
+                delete_node(e);
+                break;
+            }
+
+            case 3:
+            {
+                printf("Enter the value to search for: ");
+                scanf("%d",&e);
+                search_node(e);
+                break;
+            }
+
+            case 4:
+            {
+                inorder(base_root);
+                break;
+            }
+
+            default:
+            {
+                break;
+            }
+        }
+    }
     return 0;
 }

@@ -157,6 +157,8 @@ int main()
         switch (c)
         {
             case 0:
+                {
+
                 int n;
                 printf("Enter no. of values");
                 scanf("%d",&n);
@@ -168,35 +170,36 @@ int main()
                     Insert(e,-1);
                 }
                 break;
+                }
 
             case 1:
-            printf("Enter Value: ");
-            scanf("%d",&e);
-            printf("Enter position(enter -1 for last): ");
-            scanf("%d",&p);
-            Insert(e,p);
-            break;
+                printf("Enter Value: ");
+                scanf("%d",&e);
+                printf("Enter position(enter -1 for last): ");
+                scanf("%d",&p);
+                Insert(e,p);
+                break;
 
             case 2:
-            printf("Enter the value: ");
-            scanf("%d",&e);
-            delete_value(e);
-            break;
+                printf("Enter the value: ");
+                scanf("%d",&e);
+                delete_value(e);
+                break;
 
             case 3:
-            printf("Enter the position: ");
-            scanf("%d",&p);
-            delete(p);
-            break;
+                printf("Enter the position: ");
+                scanf("%d",&p);
+                delete(p);
+                break;
 
             case 4:
-            printf("Enter the value to search for: ");
-            scanf("%d",&e);
-            search(e);
-            break;
+                printf("Enter the value to search for: ");
+                scanf("%d",&e);
+                search(e);
+                break;
 
             case 5:
-            Traversal();
+                Traversal();
 
             default:
                 break;

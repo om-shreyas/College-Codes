@@ -6,7 +6,7 @@ void push(int e,int A[])
     if(top!=N)
     {
         top+=1;
-        A[top]=e;       
+        A[top]=e;
     }
     else
     {
@@ -40,7 +40,7 @@ int main()
     int c=0;
     while(c!=4)
     {
-        printf("Enter the choice(1:pop 2:push 3:peak):");
+        printf("Enter the choice(1:push 2:pop 3:peak):");
         scanf("%d",&c);
         switch (c)
         {

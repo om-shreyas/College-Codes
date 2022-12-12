@@ -12,9 +12,9 @@ void insertion(int A[],int N,int l,int e)
 void deletion(int A[],int n,int N)
 {
     int i;
-    for(i=n-1;i<N-1;i++)
+    for(i=n;i<N;i++)
     {
-        A[i]=A[i+1];
+        A[i-1]=A[i];
     }
 }
 void traversal(int A[],int N)
