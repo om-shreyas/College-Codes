@@ -13,6 +13,7 @@ int* create(int N)
     }
     return (A);
 }
+
 int main()
 {
     int N;
@@ -29,9 +30,29 @@ int main()
             s=l;
             l=A[i];
         }
+        if(A[i]>s || s==l)
+        {
+            s=A[i];
+        }
     }
     printf("The second Largest Number is %d",s);
 
-    return(0);   
+    int sm=A[0];
+    int ssm=A[0];
+    for(int i=0;i<N;i++)
+    {
+        if(A[i]<sm)
+        {
+            ssm=sm;
+            sm=A[i];
+        }
+        if(A[i]<ssm || ssm==sm)
+        {
+            ssm=A[i];
+        }
+    }
+    printf("\nThe second smallest Number is %d",ssm);
+
+    return(0);
 
 }

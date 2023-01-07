@@ -4,7 +4,6 @@
 struct node
 {
     int data;
-    struct node* root;
     struct node* left;
     struct node* right;
 };
@@ -27,14 +26,6 @@ node * search(int n)
         }
     }
     return(current);
-}
-
-void search_node(int n)
-{
-    node * temp = search(n);
-    printf("  %d  ",temp->root->data);
-    printf("| / \ |");
-    printf("%d   %d",temp->root->left->data,temp->root->right->data);
 }
 
 void postorder(node * root)
@@ -83,7 +74,7 @@ void insert_node(int value)
 {
     node * new = (node *)malloc(sizeof(node));
     new->data = value;
-    new->root = NULL; new->left = NULL; new->right = NULL;
+    new->left = NULL; new->right = NULL;
 
 
     if(base_root==NULL)
@@ -146,21 +137,7 @@ int check_leaf(node * n)
     }
 }
 
-void delete_node(int n1)
-{
-    node * n = search(n1);
-    if(check_leaf(n)==1)
-    {
-        if(n->root->data>n1)
-        {
-            n->root->left=NULL;
-        }
-        else
-        {
-            n->root->right=NULL;
-        }
-    }
-}
+
 
 int main()
 {
