@@ -63,6 +63,23 @@ class Family extends Student
         System.out.println("Mother: "+mother+" Father: "+father);
     }
 }
+
+class Cricket implements Sports{
+    int wt;
+    int scores;
+    Scanner sc = new Scanner(System.in);
+    public void put_wt(){
+        System.out.print("Enter weight of student: ");
+        wt=sc.nextInt();
+    }
+    void put_scores(){
+        System.out.print("Enter scores of student: ");
+        scores=sc.nextInt();
+    }
+    void get_scores(){
+        System.out.println("The scores are: "+scores);
+    }
+}
 class java{
     public static void main(String[] args) {
         Result r1 = new Result();
@@ -75,5 +92,8 @@ class java{
         Family f = new Family();
         f.put_parents();
         f.get_parents();
+        Cricket c = new Cricket();
+        c.put_wt();
+        c.put_scores();
     }
 }
