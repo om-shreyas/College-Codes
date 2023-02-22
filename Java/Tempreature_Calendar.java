@@ -36,5 +36,6 @@ public class Tempreature_Calendar {
         }
         System.out.println("The Hottes days was "+max_temp_day+" in city "+max_temp_city);
         System.out.println("The Hottes days was "+low_temp_day+" in city "+low_temp_city);
+        sc.close();
     }
 }
