@@ -17,5 +17,6 @@ class floating_point{
         {
             System.out.println("The numbers are unequal");
         }
+        sc.close();
     }
 }
