@@ -74,7 +74,7 @@ int main()
         printf("%d %d %d %d %d %d",p_array[i].pid,p_array[i].prior,p_array[i].at,p_array[i].t_bt,p_array[i].tat,p_array[i].wt);
         printf("\n");
     }
-    printf("%f",t_wt/n);
+    printf("%f \n",t_wt/n);
     
     return 0;
 }

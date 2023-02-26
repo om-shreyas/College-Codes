@@ -65,9 +65,9 @@ int main()
     for(int i =0;i<n;i++)
     {
         t_wt += p_array[i].wt;
-        printf("%d %d %d %d %d %d",p_array[i].pid,p_array[i].prior,p_array[i].at,p_array[i].bt,p_array[i].tat,p_array[i].wt,p_array[i].prior);
+        printf("%d %d %d %d %d %d",p_array[i].pid,p_array[i].prior,p_array[i].at,p_array[i].bt,p_array[i].tat,p_array[i].wt);
         printf("\n");
     }
-    printf("%f",t_wt/n);
+    printf("%f \n",t_wt/n);
     return 0;
 }
