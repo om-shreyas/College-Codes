@@ -62,10 +62,25 @@ int main()
     int t_n = n;
     int* process_queue=(int *)malloc(sizeof(int)*n);
     int in_process = 0;
+    int prev_process = -1;
     while (t_n>0)
     {
-        
+        for(int i =0;i<n;i++)
+        {
+            if(p_array[i].at<=cpu_time && p_array[i].comp==0 && p_array[i].in_queue==0)
+            {
+                process_queue = add_queue(process_queue,in_process,i);
+                in_process+=1;
+                p_array[i].in_queue=1;
+            }
+        }
         print_queue(process_queue,in_process);
+        if(prev_process!=-1)
+        {
+            process_queue=add_queue(process_queue,in_process,prev_process);
+            in_process+=1;
+        }
+
         if(in_process>0)
         {
             int current_process = process_queue[0];
@@ -78,14 +93,14 @@ int main()
                 p_array[current_process].comp=1;
                 p_array[current_process].tat=cpu_time-p_array[current_process].at;
                 p_array[current_process].wt=p_array[current_process].tat-p_array[current_process].t_bt;
-                t_n-=1;   
+                t_n-=1;
+                prev_process = -1;
             }
             else
             {
+                prev_process=process_queue[0];
                 process_queue=pop_queue(process_queue,in_process);
                 in_process-=1;
-                process_queue=add_queue(process_queue,in_process,current_process);
-                in_process+=1;
             }
         }
         else
@@ -93,13 +108,13 @@ int main()
             cpu_time+=1;
         }
     }
-
+    
     float t_wt = 0;
     
     for(int i =0;i<n;i++)
     {
         t_wt += p_array[i].wt;
-        printf("%d %d %d %d %d %d",p_array[i].pid,p_array[i].prior,p_array[i].at,p_array[i].t_bt,p_array[i].tat,p_array[i].wt);
+        printf("%d %d %d %d %d %d",p_array[i].pid,p_array[i].at,p_array[i].t_bt,p_array[i].tat,p_array[i].wt,p_array[i].prior);
         printf("\n");
     }
 
