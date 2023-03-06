@@ -64,49 +64,42 @@ int main()
     int in_process = 0;
     while (t_n>0)
     {
-        for(int i =0;i<n;i++)
-        {
-            if(p_array[i].at<=cpu_time && p_array[i].comp==0 && p_array[i].in_queue==0)
-            {
-                process_queue = add_queue(process_queue,in_process,i);
-                in_process+=1;
-                p_array[i].in_queue=1;
-            }
-        }
+        
         print_queue(process_queue,in_process);
-    }
-    if(in_process>0)
-    {
-        int current_process = process_queue[0];
-        cpu_time+=1;
-        p_array[current_process].bt-=1;
-        if(p_array[current_process].bt==0)
+        if(in_process>0)
         {
-            process_queue=pop_queue(process_queue,in_process);
-            in_process-=1;
-            p_array[current_process].comp=1;
-            p_array[current_process].tat=cpu_time-p_array[current_process].at;
-            p_array[current_process].wt=p_array[current_process].tat-p_array[current_process].t_bt;
-            t_n-=1;
+            int current_process = process_queue[0];
+            cpu_time+=2;
+            p_array[current_process].bt-=2;
+            if(p_array[current_process].bt==0)
+            {
+                process_queue=pop_queue(process_queue,in_process);
+                in_process-=1;
+                p_array[current_process].comp=1;
+                p_array[current_process].tat=cpu_time-p_array[current_process].at;
+                p_array[current_process].wt=p_array[current_process].tat-p_array[current_process].t_bt;
+                t_n-=1;   
+            }
+            else
+            {
+                process_queue=pop_queue(process_queue,in_process);
+                in_process-=1;
+                process_queue=add_queue(process_queue,in_process,current_process);
+                in_process+=1;
+            }
         }
         else
         {
-            process_queue=pop_queue(process_queue,in_process);
-            in_process-=1;
-            process_queue=add_queue(process_queue,in_process,current_process);
-            in_process+=1;
+            cpu_time+=1;
         }
     }
-    else
-    {
-        cpu_time+=1;
-    }
+
     float t_wt = 0;
     
     for(int i =0;i<n;i++)
     {
         t_wt += p_array[i].wt;
-        printf("%d %d %d %d %d %d %d",p_array[i].pid,p_array[i].prior,p_array[i].at,p_array[i].t_bt,p_array[i].tat,p_array[i].wt,p_array[i].prior);
+        printf("%d %d %d %d %d %d",p_array[i].pid,p_array[i].prior,p_array[i].at,p_array[i].t_bt,p_array[i].tat,p_array[i].wt);
         printf("\n");
     }
 
