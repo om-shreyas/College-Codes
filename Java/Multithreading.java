@@ -32,5 +32,5 @@ class Multithreading{
         B1.run();
         Kyabaathai K1 = new Kyabaathai();
         K1.run();
-    }
+    }
 }
