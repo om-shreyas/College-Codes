@@ -12,7 +12,7 @@ int *pop_array(int A[], int value, int n)
     }
     for(int i=index;i<n;i++)
     {
-        A[index]=A[index+1];
+        A[i]=A[i+1];
     }
     return (A);
 }
@@ -60,42 +60,42 @@ int main()
             availaibe[j]=availaibe[j]-allocated[i][j];
         }
     }
-
+    traverse_array(process_array,np);
     while(np>0)
     {
-        int process_executed=-1;
+        int process_excuted = -1;
         for(int i =0;i<np;i++)
         {
-            int current_process=process_array[i];
-            int resource_mismatch=0;
+
+            int process_mimatch = 0;
             for(int j=0;j<nr;j++)
             {
-                if(requested[current_process][j]>availaibe[j])
+                if(requested[process_array[i]][j]>availaibe[j])
                 {
-                    resource_mismatch+=1;
-                    printf("%d %d %d",j,requested[current_process][j],availaibe[j]);
+                    process_mimatch+=1;
                     break;
                 }
             }
-            if(resource_mismatch==0)
+            if(process_mimatch==0)
             {
-                process_executed=i;
+                process_excuted=process_array[i];
                 break;
             }
         }
-        if(process_executed!=-1)
+        if(process_excuted!=-1)
         {
-            printf("%d \n",process_executed);
-            for(int i=0;i<nr;i++)
-
+            for(int i =0;i<nr;i++)
             {
-                availaibe[i]+=allocated[process_executed][i];
+                availaibe[i]+=allocated[process_excuted][i];
             }
-            traverse_array(process_array,np);
-            printf("Process %d safely executed",process_executed);
-            process_array=pop_array(process_array,process_executed,np);
+            printf("%d process executed without issues \n",process_excuted);
+            process_array=pop_array(process_array,process_excuted,np);
             np-=1;
             traverse_array(process_array,np);
+        }
+        else
+        {
+            printf("Deadlock occured");
         }
     }
 }
