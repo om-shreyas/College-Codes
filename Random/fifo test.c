@@ -8,7 +8,7 @@ int *add_queue(int A[],int nf,int p)
         A[i]=A[i+1];
     }
     printf("%d %d",A[nf],p);
-    A[nf]=p;
+    A[nf-1]=p;
     return(A);
 }
 void traverse_array(int A[], int n)
