@@ -55,7 +55,7 @@ int main()
     printf("Enter the number of pages: ");
     scanf("%d",&np);
     int nf;
-    printf("Enter the number of frames");
+    printf("Enter the number of frames: ");
     scanf("%d",&nf);
     int* frame = (int *)malloc(sizeof(int)*nf);
     int* pages = (int *)malloc(sizeof(int)*np);
