@@ -99,8 +99,8 @@ int main()
     {
         printf("Enter page %d: ",i);
         scanf("%d",&pages[i]);
-        printf("\n");
     }
+    printf("\n");
     int hit = 0;
     int fault = 0;
     for(int i = 0;i<np;i++)
