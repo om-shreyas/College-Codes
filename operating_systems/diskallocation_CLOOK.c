@@ -94,7 +94,6 @@ int main()
     }
     else if(d==1)
     {
-        printf("%d \n",min_left(disk_string,n,current));
         seektime = 2*max(disk_string,n) - current  - min(disk_string,n) + min_left(disk_string,n,current);
     }
 
