@@ -73,7 +73,7 @@ int main()
     printf("Enter Element for Linear search: ");
     scanf("%d",&e);
 
-    printf("Element %d is at %d",e,linear(N,A,e));
+    printf("Element %d is at %d\n",e,linear(N,A,e));
 
     printf("Enter Element for binary search: ");
     scanf("%d",&e);
