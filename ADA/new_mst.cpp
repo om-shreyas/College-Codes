@@ -72,51 +72,28 @@ int node_in(vector<int> v,int j){
     return(0);
 }
 int main(){
-    int nodes;
-    cout<<"Enter the total number of nodes: ";
-    cin>>nodes;
+    int nodes = 3;
     int ** graph = Graph(nodes);
     graph = create_graph(graph,nodes);
 
-    vector <int> w;
-    vector <int> start;
-    vector <int> end;
+    int ** result_graph = Graph(nodes);
 
-    for(int i =0;i<nodes;i++){
-        for(int j =0;j<nodes;j++){
-            if(graph[i][j]!=inf && graph[i][j]!=0){
-                w.push_back(graph[i][j]);
-                start.push_back(i);
-                end.push_back(j);
+
+    for(int j =0;j<nodes;j++){
+        int min_weight =-1;
+        int min_parent = -1;
+        for(int i =0;i<nodes;i++){
+            if(graph[i][j]!=0 && graph[i][j]!=inf){
+                if(min_weight>graph[i][j] || min_weight==-1){
+                    min_weight=graph[i][j];
+                    min_parent = i;    
+                }
             }
         }
+        result_graph[min_parent][j] = min_weight;
     }
 
-    for(int i=0;i<w.size();i++){
-        for(int j=0;j<w.size()-i-1;j++){
-            if(w[j]>w[j+1]){
-                int temp = w[j];
-                w[j] = w[j+1];
-                w[j+1] = temp;
+    
 
-                temp = end[j];
-                end[j] = end[j+1];
-                end[j+1] = temp;
-
-                temp = start[j];
-                start[j] = start[j+1];
-                start[j+1] = temp;
-            }
-        }
-    }
-
-    vector<int> nodes_covered;
-    nodes_covered.push_back(0);
-    for(int i = 0;i<w.size();i++){
-        if(node_in(nodes_covered,end[i])==0){
-            nodes_covered.push_back(end[i]);
-            cout<<start[i]<<"--"<<w[i]<<"-->"<<end[i]<<endl;
-        }
-    }
     return 0;
 }

@@ -78,45 +78,28 @@ int main(){
     int ** graph = Graph(nodes);
     graph = create_graph(graph,nodes);
 
-    vector <int> w;
-    vector <int> start;
-    vector <int> end;
-
-    for(int i =0;i<nodes;i++){
-        for(int j =0;j<nodes;j++){
-            if(graph[i][j]!=inf && graph[i][j]!=0){
-                w.push_back(graph[i][j]);
-                start.push_back(i);
-                end.push_back(j);
-            }
-        }
-    }
-
-    for(int i=0;i<w.size();i++){
-        for(int j=0;j<w.size()-i-1;j++){
-            if(w[j]>w[j+1]){
-                int temp = w[j];
-                w[j] = w[j+1];
-                w[j+1] = temp;
-
-                temp = end[j];
-                end[j] = end[j+1];
-                end[j+1] = temp;
-
-                temp = start[j];
-                start[j] = start[j+1];
-                start[j+1] = temp;
-            }
-        }
-    }
-
     vector<int> nodes_covered;
     nodes_covered.push_back(0);
-    for(int i = 0;i<w.size();i++){
-        if(node_in(nodes_covered,end[i])==0){
-            nodes_covered.push_back(end[i]);
-            cout<<start[i]<<"--"<<w[i]<<"-->"<<end[i]<<endl;
+
+    while(nodes_covered.size()<nodes){
+        int min_weight = -1;
+        int min_end_node = -1;
+        int min_start_node = -1;
+        for(auto i = nodes_covered.begin();i<nodes_covered.end();i++){
+            for(int j = 0;j<nodes;j++){
+                if(node_in(nodes_covered,j)==0){
+                    if(min_weight==-1 || min_weight>graph[*i][j]){
+                        min_weight = graph[*i][j];
+                        min_end_node = j;
+                        min_start_node = *i;
+                    }
+                }
+            }
         }
+        cout<<min_start_node<<"--"<<min_weight<<"-->"<<min_end_node<<endl;
+        nodes_covered.push_back(min_end_node);
+
     }
+
     return 0;
 }
