@@ -52,6 +52,25 @@ int node_in(vector<int> v,int j){
     }
     return(0);
 }
+void print_graph(int ** graph,int nodes){
+    cout <<" \t";
+    for(int i =0;i<nodes;i++){
+        cout<<i<<"\t";
+    }
+    cout<<endl;
+    for(int i =0;i<nodes;i++){
+        cout<<i<<"\t";
+        for(int j=0;j<nodes;j++){
+            if(graph[i][j]==inf){
+                cout<<"inf"<<"\t";
+            }
+            else{
+                cout<<graph[i][j]<<"\t";
+            }
+        }
+        cout<<endl;
+    }
+}
 int main()
 {
     int nodes;
@@ -59,6 +78,8 @@ int main()
     cin>>nodes;
     int ** graph = Graph(nodes);
     graph = create_graph(graph,nodes);
+
+    print_graph(graph,nodes);
 
     int min = INT_MAX;
     vector<int> visited_nodes;

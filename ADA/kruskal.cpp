@@ -85,7 +85,8 @@ int main(){
     for(int i =0;i<nodes;i++){
         for(int j =0;j<nodes;j++){
             if(graph[i][j]!=inf && graph[i][j]!=0){
-                w.push_back(graph[i][j]);
+                w.push_back(graph[
+                    i][j]);
                 start.push_back(i);
                 end.push_back(j);
             }
