@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <unordered_map>
 using namespace std;
 
 void print_vector(vector<string> s){
@@ -10,6 +9,41 @@ void print_vector(vector<string> s){
         cout<<s[i] << " ";
     }
     cout<<endl;
+}
+string findCommonPrefix(const string& str1, const string& str2) {
+    int minLength = min(str1.length(), str2.length());
+    string commonPrefix = "";
+
+    for (int i = 0; i < minLength; ++i) {
+        if (str1[i] == str2[i]) {
+            commonPrefix += str1[i];
+        } else {
+            break;
+        }
+    }
+
+    return commonPrefix;
+}
+string common_string(vector<string> rhs_production)
+{
+    string common = "";
+    for(int i = 0;i<rhs_production.size()-1;i++)
+    {
+        string new_common = findCommonPrefix(rhs_production[0],rhs_production[1]);
+        if(new_common=="")
+        {
+            continue;
+        }
+        else{
+            if(common.size()<new_common.size() and common.size()!=0){
+                continue;
+            }
+            else{
+                common = new_common;
+            }
+        }
+    }
+    return(common);
 }
 
 int main(){
@@ -29,21 +63,18 @@ int main(){
 
     vector <string> new_grammar;
 
-    unordered_map<string, vector<string>> non_terminals;
-
     for(int i = 0;i<grammar.size();i++)
     {
         string start;
         string rhs;
         string production = grammar[i];
         start = production.substr(0,production.find("->"));
-        rhs = production.substr(production.find("->")+2);
+        rhs = production.substr(production.find("->")+2); 
 
-        vector<string> alphas;
-        vector<string> betas;
+        vector<string> rhs_production;
         int initial = 0;
-        int j = 0;
-        while (initial < rhs.size()) {
+        int j = 0; 
+        while (initial < rhs.size()) { 
             int pipe_pos = rhs.find("|", initial);
             string temp_production;
             if (pipe_pos != string::npos) {
@@ -53,62 +84,35 @@ int main(){
                 temp_production = rhs.substr(initial);
                 initial = rhs.size();
             }
-            if(temp_production.find(start) == 0){
-                alphas.push_back(temp_production.substr(1));
-            } else {
-                betas.push_back(temp_production);
-            }
+            rhs_production.push_back(temp_production);
         }
-        print_vector(alphas);
-        print_vector(betas);
-
-        if (!alphas.empty()) {
-            string new_start = start + "'";
-            non_terminals[start].push_back(betas[0] + new_start);
-            for (int k = 1; k < betas.size(); ++k) {
-                non_terminals[new_start].push_back(betas[k]);
-            }
-            non_terminals[new_start].push_back("epsilon");
-
-            string common_prefix = "";
-            for (int k = 0; k < alphas.size(); ++k) {
-                if (common_prefix.empty()) {
-                    common_prefix = alphas[k];
-                } else {
-                    int j = 0;
-                    while (j < common_prefix.size() && j < alphas[k].size() && common_prefix[j] == alphas[k][j]) {
-                        j++;
+        string common = common_string(rhs_production);
+        string new_start = start + "'";
+        string common_rhs = common;
+        string new_rhs = "";
+        int epsilon = 0;
+        if(common!=""){
+            int size = common.size();
+            for(int j=0;j<rhs_production.size();j++)
+            {
+                if(rhs_production[j].find(common)==0){
+                    if(rhs_production[j].size()==common.size() && epsilon == 0){
+                        common_rhs += "|epsilon";
                     }
-                    common_prefix = common_prefix.substr(0, j);
+                    rhs_production[j] = rhs_production[j].replace(0,common.size(),new_start);
+                    // cout<<rhs_production[j];
                 }
+                new_rhs+=(rhs_production[j])+='|';
             }
-
-            if (!common_prefix.empty()) {
-                non_terminals[start].push_back(common_prefix + new_start);
-                for (int k = 0; k < alphas.size(); ++k) {
-                    string remainder = alphas[k].substr(common_prefix.size());
-                    if (!remainder.empty()) {
-                        non_terminals[new_start].push_back(remainder);
-                    }
-                }
-            } else {
-                non_terminals[start].insert(non_terminals[start].end(), alphas.begin(), alphas.end());
-            }
-        } else {
-            non_terminals[start].insert(non_terminals[start].end(), betas.begin(), betas.end());
+            new_grammar.push_back(start+"->"+new_rhs.substr(0,new_rhs.size()-1));
+            new_grammar.push_back(new_start+"->"+common_rhs);
         }
+        else{
+            new_grammar.push_back(grammar[i]);
+        }
+        
     }
 
-    for (auto it = non_terminals.begin(); it != non_terminals.end(); ++it) {
-        new_grammar.push_back(it->first + "->");
-        for (int i = 0; i < it->second.size(); ++i) {
-            new_grammar.push_back(it->second[i]);
-            if (i != it->second.size() - 1)
-                new_grammar.back() += "|";
-        }
-    }
-
-    cout << "New Grammar:" << endl;
     print_vector(new_grammar);
 
     return 0;
